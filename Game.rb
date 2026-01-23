@@ -9,6 +9,12 @@ class Game
   @board = Board.new
   end
 
+  def play_game
+    while !check_win
+      
+    end
+  end
+
   def switch_turn
     !@player1
     !@player2
@@ -24,46 +30,71 @@ class Game
   end
 
   def check_win
+    if check_vert || check_hori || check_diag
+      puts "Congrats!"
+    end
+  end
+
+  def check_vert
     current_board = @board.get_board
 
-    current_board.each_with_index do |row, index|
-      if index < 3 && row != '·'
-        if((current_board[row][index] == current_board[row][index + 1]) && (current_board[row][index] == current_board[row][index + 2]) && (current_board[row][index] == current_board[row][index + 3]) && (current_board[row][index] == current_board[row][index + 4]))
-          return true
+    (0..6).each do |col|
+      (0..2).each do |row|
+        cell = current_board[row][col]
+        next if cell == "·"
+
+        if cell == board[row + 1][col] &&
+         cell == board[row + 2][col] &&
+         cell == board[row + 3][col]
+        return true
         end
       end
     end
+  end
 
-    current_board.each_with_index do |col, index|
-      if index < 3 && col != '·'
-        if((current_board[index][col] == current_board[index + 1][col]) && (current_board[index][col] == current_board[index + 2][col]) && (current_board[index][col] == current_board[index + 3][col]) && (current_board[index][col] == current_board[index + 4][col]))
-          return true
+  def check_hori
+    current_board = @board.get_board
+
+    (0..6).each do |col|
+      (0..2).each do |row|
+        cell = current_board[row][col]
+        next if cell == "·"
+
+        if cell == board[row][col + 1] &&
+         cell == board[row][col + 2] &&
+         cell == board[row][col + 3]
+         return true
         end
       end
-    end
-
-    # diag check
-    current_board.each_with_index do |location, index|
-      
     end
   end
 
   def check_diag
     current_board = @board.get_board
     #positive climb
-    current_board.each_with_index do |row, index|
-      if index < 3 && row != '·'
-        if((current_board[row][index] == current_board[row + 1][index + 1]) && (current_board[row][index] == current_board[row + 1][index + 1]) && (current_board[row][index] == current_board[row + 1][index + 1]) && (current_board[row][index] == current_board[row + 1][index + 1]))
-          return true
+    (0..6).each do |col|
+      (0..2).each do |row|
+        cell = current_board[row][col]
+        next if cell == "·"
+
+        if cell == board[row + 1][col + 1] &&
+         cell == board[row + 2][col + 2] &&
+         cell == board[row + 3][col + 3]
+         return true
         end
       end
     end
 
     #negative descend
-    current_board.each_with_index do |row, index|
-      if index < 3 && row != '·'
-        if((current_board[row][index] == current_board[row + 1][index + 1]) && (current_board[row][index] == current_board[row + 1][index + 1]) && (current_board[row][index] == current_board[row + 1][index + 1]) && (current_board[row][index] == current_board[row + 1][index + 1]))
-          return true
+    (0..6).each do |col|
+      (0..2).each do |row|
+        cell = current_board[row][col]
+        next if cell == "·"
+
+        if cell == board[row + 1][col - 1] &&
+         cell == board[row + 2][col - 2] &&
+         cell == board[row + 3][col - 3]
+         return true
         end
       end
     end

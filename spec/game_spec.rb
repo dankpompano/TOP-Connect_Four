@@ -6,4 +6,32 @@ describe Game do
       
     end
   end
+
+  desribe "#switch_turn" do
+    
+  end
+
+  describe "#play_turn" do
+    
+  end
+
+  describe "#check_win" do
+    
+  end
+
+  describe "#check_draw" do
+    
+  end
+
+  describe "#check_vert" do
+    
+  end
+
+  describe "#check_hori" do
+    
+  end
+
+  describe "#check_diag" do
+    
+  end
 end

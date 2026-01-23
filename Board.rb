@@ -1,9 +1,9 @@
 class Board
-  attr_accessor :board
+  attr_accessor :board, :cols_map
 
   def initialize
     @board = Array.new(6) { Array.new(7, "·") }
-    @rows_map = {"A" => 0, "B" => 1, "C" => 2, "D" => 3, "E" => 4, "F" => 5, "G" => 6}
+    @cols_map = {"A" => 0, "B" => 1, "C" => 2, "D" => 3, "E" => 4, "F" => 5, "G" => 6}
   end
 
   def update_board(player_color, row, col)

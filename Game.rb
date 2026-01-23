@@ -4,35 +4,54 @@ class Game
   attr_accessor 
   
   def initialize
-  @player1 = Player.new.player1
-  @player2 = Player.new.player2
   @board = Board.new
+  @player = Player.new  
+  @current_player = @player.player1
   end
 
   def play_game
-    while !check_win
+    until check_win || check_draw
+      puts "It is #{@current_player} turn. Enter your move (e.g. A):"
+      @board.display
+      letter = gets.chomp
+      col = @board.cols_map[letter]
+      row = @board.get_row(col)
       
+      # Only continue if valid move
+      next unless play_turn( @current_player, row, col )
+
+      # After round(row), the board updated. Now check win/draw.
+      if check_win
+        puts "#{@winner} is the winner!"
+        return
+      elsif check_draw
+        puts "Draw!"
+        return
+      end
     end
   end
 
   def switch_turn
-    !@player1
-    !@player2
+    if @current_player == @player.player1
+      @current_player = @player.player2
+    else
+      @current_player = @player.player1
+    end
   end
 
-  def play_turn(player1, row, col)
-    board = Board.new
-    if(player1 == true)
-      board.update_board('R', row, col)
-    else
-      board.update_board('B', row, col)
-    end
+  def play_turn(current_player, row, col)
+    board = Board.new 
+    board.update_board(current_player, row, col)
+
   end
 
   def check_win
-    if check_vert || check_hori || check_diag
-      puts "Congrats!"
+    if check_vert || check_hori || check_diag { return true } 
     end
+  end
+  
+  def check_draw
+    @board.get_board.flatten.none? { |space| space == "·" }
   end
 
   def check_vert
@@ -46,7 +65,7 @@ class Game
         if cell == board[row + 1][col] &&
          cell == board[row + 2][col] &&
          cell == board[row + 3][col]
-        return true
+         return true
         end
       end
     end
@@ -98,11 +117,6 @@ class Game
         end
       end
     end
-  end
-
-  def prompt_player
-    puts "It is Player #{player_num}'s turn. Select the row that you would like to play. E.G: A"
-    row = gets.chomp
   end
 
 end

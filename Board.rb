@@ -15,7 +15,7 @@ class Board
   def get_row(col)
     index = 5
     c = col
-    while index != 0
+    while index >= 0
       if @board[index][c] == "·"
         return index
       else
@@ -30,13 +30,18 @@ class Board
   end
 
   def print_board
+    output = ""
+
     @board.each do |row|
-      puts "| " + row.join(" ") + " |"
+      output << "| " + row.join(" ") + " |\n"
     end
 
-    puts "-" * 17
-    puts "  A B C D E F G"
+    output << "-" * (2 * @board.first.length + 3) + "\n"
+    output << "  " + ("A"..."#{(65 + @board.first.length).chr}").to_a.join(" ") + "\n"
+
+    puts output
   end
+
   # board = Board.new
   # board.print_board
 

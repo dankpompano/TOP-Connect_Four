@@ -11,15 +11,18 @@ class Board
     @board
   end
 
-  def get_col(row)
-    @board[row].each do |index|
-      if index == '·'
-        return index.to_i
+  # need to check for available spots to fall into. Gravity effect
+  def get_row(col)
+    index = 5
+    c = col
+    while index != 0
+      if @board[index][c] == "·"
+        return index
       else
-        puts "Invalid move, please try again..."
-        return -1
-      end  
+        index -= 1
+      end
     end
+    return -1 
   end
   
   def get_board

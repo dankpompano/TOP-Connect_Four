@@ -27,8 +27,11 @@ class Main
   #   game.play_turn(player1, row, 4)
   #   count += 1
   # end
-  # col = board.get_col(4)
-  row = 4
-  board.update_board('R', 5, 1)
+  row = board.get_row(4)
+  puts row
+  col = 4
+  board.update_board('R', 5, col)
+  row = board.get_row(4)
+  puts row
   board.print_board
 end

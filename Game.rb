@@ -6,7 +6,7 @@ class Game
   def initialize
   @player1 = Player.new.player1
   @player2 = Player.new.player2
-  @board = Board.new.board
+  @board = Board.new
   end
 
   def switch_turn
@@ -15,10 +15,11 @@ class Game
   end
 
   def play_turn(player1, row, col)
+    board = Board.new
     if(player1 == true)
-      @board = @board.update_board('R', row, col)
+      board.update_board('R', row, col)
     else
-      @board = @board.update_board('B', row, col)
+      board.update_board('B', row, col)
     end
   end
 

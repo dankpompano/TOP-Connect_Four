@@ -7,6 +7,9 @@ class Board
   end
 
   def update_board(player_color, row, col)
+    unless row.between?(0,6) && col.between?(0,5)
+      raise ArgumentError, "Invalid location"
+    end
     @board[row][col] = player_color
     @board
   end

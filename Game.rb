@@ -3,8 +3,8 @@ require_relative './Player.rb'
 class Game 
   attr_reader :current_player, :winner, :board
 
-  def initialize
-  @board = Board.new
+  def initialize(board = Board.new)
+  @board = board
   @player = Player.new  
   @current_player = @player.player1
   @winner = ""

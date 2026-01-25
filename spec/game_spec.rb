@@ -44,16 +44,65 @@ describe Game do
     end
       
   end
+      3.times { |i| board.update_board("B", i, 1) } 
 
   describe "#check_vert" do
-    
+  #altered the Game class init to take board variable
+    let(:board) { Board.new }
+    let(:game) { Game.new(board) }
+
+    it 'checks for a vertical win' do
+      board.update_board("R", 0, 1)
+      board.update_board("R", 1, 1)
+      board.update_board("R", 2, 1)
+      board.update_board("R", 3, 1)
+      expect(game.check_vert).to eq(true)
+    end
+
+    it 'returns false when there is not a win present' do
+      3.times { |i| board.update_board("B", i, 1) } 
+      expect(game.check_vert).to eq(false)
+    end
   end
 
   describe "#check_hori" do
-    
+    let(:board) { Board.new }
+    let(:game) { Game.new(board) }
+    it 'checks for a horizontal win' do
+      4.times { |i| board.update_board("B", 1, i) } 
+      expect(game.check_hori).to eq(true)
+    end
+
+    it 'returns false when there is not a win present' do
+      3.times { |i| board.update_board("B", i, 1) } 
+      expect(game.check_vert).to eq(false)
+    end
   end
 
   describe "#check_diag" do
-    
+    let(:board) { Board.new }
+    let(:game) { Game.new(board) }
+    it 'checks for a diagonal positive slope win' do
+      board.update_board("R", 0, 0)
+      board.update_board("R", 1, 1)
+      board.update_board("R", 2, 2)
+      board.update_board("R", 3, 3)
+      expect(game.check_diag).to eq(true)
+    end
+
+    it 'checks for a diagonal negative slope win' do
+      board.update_board("R", 3, 3)
+      board.update_board("R", 2, 2)
+      board.update_board("R", 1, 1)
+      board.update_board("R", 0, 0)
+      expect(game.check_diag).to eq(true)
+    end
+
+    it 'returns false when there is not a win present' do
+      board.update_board("R", 0, 0)
+      board.update_board("R", 1, 1)
+      board.update_board("R", 2, 2)      
+      expect(game.check_diag).to eq(false)
+    end
   end
 end

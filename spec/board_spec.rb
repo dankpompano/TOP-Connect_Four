@@ -32,8 +32,39 @@ describe Board do
     end
   end
   describe "#get_row" do
+    it 'returns 5 in an empty column' do
+      expect(game_board.get_row(0)).to eq(5)
+    end
+
+    it 'returns 3 when two pieces are present in that row' do
+      game_board.update_board("R", 5, 1)
+      game_board.update_board("B", 4, 1)
+      expect(game_board.get_row(1)).to eq(3)
+    end
+
+    it 'returns -1 when a row is full' do
+      game_board.update_board("R", 5, 1)
+      game_board.update_board("B", 4, 1)
+      game_board.update_board("R", 3, 1)
+      game_board.update_board("B", 2, 1)
+      game_board.update_board("R", 1, 1)
+      game_board.update_board("B", 0, 1)
+      expect(game_board.get_row(1)).to eq(-1)
+    end
     
   end
+  # def get_row(col)
+  #   index = 5
+  #   c = col
+  #   while index >= 0
+  #     if @board[index][c] == "·"
+  #       return index
+  #     else
+  #       index -= 1
+  #     end
+  #   end
+  #   return -1 
+  # end
 end
 
 

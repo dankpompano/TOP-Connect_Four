@@ -51,20 +51,8 @@ describe Board do
       game_board.update_board("B", 0, 1)
       expect(game_board.get_row(1)).to eq(-1)
     end
-    
+
   end
-  # def get_row(col)
-  #   index = 5
-  #   c = col
-  #   while index >= 0
-  #     if @board[index][c] == "·"
-  #       return index
-  #     else
-  #       index -= 1
-  #     end
-  #   end
-  #   return -1 
-  # end
 end
 
 
